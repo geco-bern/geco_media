@@ -12,6 +12,8 @@ after the publication of a journal article.
 
 ## Show case
 
+Map of the rooting-zone water-storage capacity from the latest Stocker et al. 2023 paper in Nature Geoscience.
+
 ![](https://raw.githubusercontent.com/khufkens/GECO_media/main/publications/Stocker_2023a_NGS/poster_mct_thumb.png)
 
 ## Media upload instructions
