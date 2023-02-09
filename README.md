@@ -20,4 +20,5 @@ Map of the rooting-zone water-storage capacity from the latest Stocker et al. 20
 
 Generally keep image files under <350KB in size if used for online display. High resolution files can be included for reproduction, but try to keep file sizes for graphics <5MB if possible. Use `jpg` files for images, use `png` or `pdf` files for graphics (maps, charts, etc). If file sizes are tending to the large end compress data using `tar` or `zip` archiving methods.
 
+Try to limit the number of edits to large images as this will inflate the repository size, only commit and upload what you think is good enough (e.g. best to wait until after a conference so that you include last minute changes).
 
