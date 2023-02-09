@@ -1,4 +1,4 @@
-# GECO_media
+# GECO media archive
 
 A collection of materials for outreach and the media. Media materials are
 organized according to the venue.
