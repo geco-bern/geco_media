@@ -1,9 +1,13 @@
 # GECO_media
 
-A collection of materials for outreach and the media.
+A collection of materials for outreach and the media. Media materials are
+organized according to the venue.
 
-## `root_zone`
+The conference folder includes prints of posters presented at various
+conferences as well as links to online videos (e.g. Youtube materials).
 
-A0-sized posters of high-fidelity (vector graphics, PDF) maps of the rooting-zone water-storage capacity and the apparent rooting depth. Goes with publication:
+The publications folder includes additional media files which were either too
+large for the appendix of the publication or generated specifically for outreach
+after the publication of a journal article.
 
-Stocker, B.D., Tumber-Davila, S.J., Konings, A.G., Anderson, M.B., Hain, C. and Jackson, R.B.: Global patterns of water storage in the rooting zones of vegetation, *Nature Geoscience*, https://www.nature.com/articles/s41561-023-01125-2, 2023
+
