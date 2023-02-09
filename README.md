@@ -12,11 +12,10 @@ after the publication of a journal article.
 
 ## Show case
 
-![]()
-
+![](https://raw.githubusercontent.com/khufkens/GECO_media/main/publications/Stocker_2023a_NGS/poster_mct_thumb.png)
 
 ## Media upload instructions
 
-Generally keep image files under <350KB in size if used for online display. High resolution files can be included for reproduction, but try to keep file sizes for graphics <5MB if possible. Use `jpg` files for images, use `png` or `pdf` files for graphics (maps, charts, etc).
+Generally keep image files under <350KB in size if used for online display. High resolution files can be included for reproduction, but try to keep file sizes for graphics <5MB if possible. Use `jpg` files for images, use `png` or `pdf` files for graphics (maps, charts, etc). If file sizes are tending to the large end compress data using `tar` or `zip` archiving methods.
 
 
