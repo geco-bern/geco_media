@@ -12,7 +12,7 @@ after the publication of a journal article.
 
 ## Show case
 
-![](https://raw.githubusercontent.com/khufkens/GECO_media/main/publications/Stocker_2023a_NGS/poster_mct_thumb.png)
+![](https://raw.githubusercontent.com/computationales/GECO_media/main/publications/Stocker_2023a_NGS/poster_mct_thumb.png)
 
 ## Media upload instructions
 
