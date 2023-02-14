@@ -3,7 +3,7 @@
 A collection of materials for outreach and the media. Media materials are
 organized according to the venue.
 
-The [conference folder](https://github.com/computationales/GECO_media/tree/main/conferences) includes prints of posters presented at various
+The [conference folder](https://github.com/geco-bern/GECO_media/tree/main/conferences) includes prints of posters presented at various
 conferences as well as links to online videos (e.g. Youtube materials).
 
 The [publications folder](https://github.com/computationales/GECO_media/tree/main/publications) includes additional media files which were either too
@@ -14,7 +14,7 @@ after the publication of a journal article.
 
 Map of the rooting-zone water-storage capacity from the latest Stocker et al. 2023 paper in Nature Geoscience.
 
-![](https://raw.githubusercontent.com/computationales/GECO_media/main/publications/Stocker_2023a_NGS/poster_mct_thumb.png)
+![](https://raw.githubusercontent.com/geco-bern/GECO_media/main/publications/Stocker_2023a_NGS/poster_mct_thumb.png)
 
 ## Media upload instructions
 
