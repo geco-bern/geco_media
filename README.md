@@ -10,6 +10,8 @@ The [publications folder](https://github.com/geco-bern/GECO_media/tree/main/publ
 large for the appendix of the publication or generated specifically for outreach
 after the publication of a journal article.
 
+The [teaching folder](https://github.com/geco-bern/GECO_media/tree/main/teaching) includes teaching material in the form of (html) slides and other supporting information.
+
 ## Show case
 
 Map of the rooting-zone water-storage capacity from the latest Stocker et al. 2023 paper in Nature Geoscience.
