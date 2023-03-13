@@ -1,0 +1,34 @@
+---
+title: "Data Variety"
+author: "Koen Hufkens"
+output: 
+  ioslides_presentation:
+    incremental: false
+    logo: "geco_logo_small.png"
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Expectations
+
+- something about data
+- something more about data
+
+## A Figure
+
+```{r echo=FALSE, fig.cap="RStudio interface from R4DS by Hadley et al.", out.width="85%", fig.align='center'}
+knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/9a23d664f0f49bc2ef8e78bed6277dd48bd2b96d/af132/diagrams/rstudio-console.png")
+```
+
+## A chunk
+
+```{r warning=FALSE, message=FALSE}
+library(terra)
+library(sf)
+library(MODISTools)
+library(tidyverse)
+```
+
