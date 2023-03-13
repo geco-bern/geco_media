@@ -3,7 +3,9 @@ title: "Data Variety"
 author: "Koen Hufkens"
 output: 
   ioslides_presentation:
-    incremental: false
+    incremental: true
+    widescreen: true
+    smaller: false
     logo: "geco_logo_small.png"
 date: "`r Sys.Date()`"
 ---
@@ -12,12 +14,58 @@ date: "`r Sys.Date()`"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Expectations
+## Data variety {.build}
 
-- something about data
-- something more about data
+- Data isn't delivered as usable entities for any given program
+- Requires certain software (libraries) to be read & manipulated
+```{r eval=FALSE}
+# common libraries and or functions to access data
+read.table()
+read.csv()
+```
+- Multiple ways of accessing data
 
-## A Figure
+## File formats
+
+- Data format is defined by a file extension
+- File extension is the last section of a file name after the last separating dot `.`
+- For example in `my_file.csv`, here, `csv` is the file extension
+- Describes the content of the file
+
+## File formats
+### File extensions
+
+- Only part of the file name
+- Ideally reflect the content, but not always
+- `my_file.csv` and `my_file.whatever` can have the same content
+
+## Readability
+
+- Distinction between human readable and binary data
+  - binary data != human readable
+
+## Finding & using data {.build}
+
+- World is data rich, finding the right data is key
+- Read the documentation
+  - motivate why you use particular data
+  - make notes on particular limitations
+- Understand the format (extension)
+- Identify how to get the data
+
+## Finding & using data
+### Getting data
+
+- Direct downloads
+  - manually
+  - not always structured
+- Application Programming Interfaces (APIs)
+  - automatic
+
+## 
+
+## 
+
 
 ```{r echo=FALSE, fig.cap="RStudio interface from R4DS by Hadley et al.", out.width="85%", fig.align='center'}
 knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/9a23d664f0f49bc2ef8e78bed6277dd48bd2b96d/af132/diagrams/rstudio-console.png")
