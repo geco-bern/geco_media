@@ -25,6 +25,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 - Deduction is not fully covered by the scientific method
   - inherent stochasticity
+- Moral hazard
 
 ## Framework
 
@@ -40,7 +41,8 @@ knitr::include_graphics("https://the-turing-way.netlify.app/_images/reproducible
 ## Ocean acidification and fish behaviour {.emphasized}
 
 - Re-analysis and replication failed
-- Bias and small sample sizes to blame
+- Bias and small sample sizes
+- scientific misconduct / data fabrication
 
 ## Ocean acidification and fish behaviour {.emphasized}
 
@@ -51,7 +53,7 @@ knitr::include_graphics("decline_effect.jpg")
 ## Ocean acidification and fish behaviour {.emphasized}
 
 - **Decline effect**
-- 
+- decreasing effect size over time
 
 ## Ocean acidification and fish behaviour {.emphasized}
 
