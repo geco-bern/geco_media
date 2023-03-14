@@ -3,7 +3,8 @@ title: "Data Variety"
 author: "Koen Hufkens"
 output: 
   ioslides_presentation:
-    incremental: true
+    css: styles.css
+    incremental: false
     widescreen: true
     smaller: false
     logo: "geco_logo_small.png"
@@ -14,9 +15,21 @@ date: "`r Sys.Date()`"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Data variety {.build}
+## {data-background=darwin-vegher-unsplash.jpg data-background-size=cover .emphasized #invert}
 
-- Data isn't delivered as usable entities for any given program
+  - Need to know where to find data
+  - How to search for data
+  - How to read data
+
+## Data variety
+
+```{r echo=FALSE, fig.cap="Von Humboldt  - Wiki Commons", out.width="65%", fig.align='center'}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Geographie_der_Pflanzen_in_den_Tropen-L%C3%A4ndern.jpg/1024px-Geographie_der_Pflanzen_in_den_Tropen-L%C3%A4ndern.jpg")
+```
+
+## Data variety {.build .emphasized}
+
+- Data is not delivered as usable entities
 - Requires certain software (libraries) to be read & manipulated
 ```{r eval=FALSE}
 # common libraries and or functions to access data
@@ -25,36 +38,54 @@ read.csv()
 ```
 - Multiple ways of accessing data
 
-## File formats
+## File formats {.emphasized}
 
 - Data format is defined by a file extension
-- File extension is the last section of a file name after the last separating dot `.`
+- Last section of a file name after the last separating dot `.`
 - For example in `my_file.csv`, here, `csv` is the file extension
 - Describes the content of the file
 
-## File formats
-### File extensions
+## File formats {.emphasized}
 
-- Only part of the file name
 - Ideally reflect the content, but not always
 - `my_file.csv` and `my_file.whatever` can have the same content
 
-## Readability
+## Readability {.emphasized}
 
 - Distinction between human readable and binary data
   - binary data != human readable
 
-## Finding & using data {.build}
+## Readability
 
-- World is data rich, finding the right data is key
-- Read the documentation
-  - motivate why you use particular data
-  - make notes on particular limitations
+```{r echo=FALSE, fig.cap="", out.width="65%", fig.align='center'}
+knitr::include_graphics("binary_data.png")
+```
+
+## Finding & using data {.emphasized}
+
+- World is data rich
+- Finding the right data is key
+- More on open data sources in the next lecture
+
+## Finding & using data {.emphasized}
+
+<div class="columns-2">
+  ![](ikea.jpg)
+
+  - Read the documentation
+  - Motivate the use of particular data
+  - Make notes on potential limitations
+</div>
+
+## Finding & using data {.emphasized}
+
+- Identify how to **get the data**
 - Understand the format (extension)
-- Identify how to get the data
+- **Confirm the format**
+  - meta-data
+  - headers
 
-## Finding & using data
-### Getting data
+## Getting data {.emphasized}
 
 - Direct downloads
   - manually
@@ -62,21 +93,10 @@ read.csv()
 - Application Programming Interfaces (APIs)
   - automatic
 
-## 
+## {data-background=eugenio-mazzone-unsplash.jpg data-background-size=cover .emphasized}
 
-## 
-
-
-```{r echo=FALSE, fig.cap="RStudio interface from R4DS by Hadley et al.", out.width="85%", fig.align='center'}
-knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/9a23d664f0f49bc2ef8e78bed6277dd48bd2b96d/af132/diagrams/rstudio-console.png")
-```
-
-## A chunk
-
-```{r warning=FALSE, message=FALSE}
-library(terra)
-library(sf)
-library(MODISTools)
-library(tidyverse)
-```
-
+<div class="centered">
+<div class="white">
+80% data, 20% science
+</div>
+</div>

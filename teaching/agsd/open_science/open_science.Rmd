@@ -1,0 +1,95 @@
+---
+title: "Open Science"
+author: "Koen Hufkens"
+output: 
+  ioslides_presentation:
+    css: styles.css
+    incremental: false
+    widescreen: true
+    smaller: false
+    logo: "geco_logo_small.png"
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## History {.emphasized}
+
+- Solution to the replication (reproducibility) crisis
+  - originates in medicine / sociology
+- The inability to reproduce the same results given the same data
+
+## History {.emphasized}
+
+- Deduction is not fully covered by the scientific method
+  - inherent stochasticity
+
+## Framework
+
+```{r echo=FALSE, fig.cap="image by The Turing Way", out.width="85%", fig.align='center'}
+knitr::include_graphics("https://the-turing-way.netlify.app/_images/reproducible-matrix.jpg")
+```
+
+## Case study: ocean acidification and fish behaviour {.emphasized}
+
+- Ocean acidification makes fish take risks
+- Profound effects on marine diversity and fisheries
+
+## Ocean acidification and fish behaviour {.emphasized}
+
+- Re-analysis and replication failed
+- Bias and small sample sizes to blame
+
+## Ocean acidification and fish behaviour {.emphasized}
+
+```{r echo=FALSE, fig.cap="Clements et al. 2022 (Plos Biology)", out.width="85%", fig.align='center'}
+knitr::include_graphics("decline_effect.jpg")
+```
+
+## Ocean acidification and fish behaviour {.emphasized}
+
+- **Decline effect**
+- 
+
+## Ocean acidification and fish behaviour {.emphasized}
+
+```{r echo=FALSE, fig.cap="Enserik (Science 2021)", out.width="75%", fig.align='center'}
+knitr::include_graphics("sea_of_doubt.png")
+```
+
+## Open Science (Scholarship)
+
+```{r echo=FALSE, fig.cap="redrawn from Persic 2021 (UNESCO, Wiki Commons)", out.width="85%", fig.align='center'}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Osc2021-unesco-open-science-no-gray.png/800px-Osc2021-unesco-open-science-no-gray.png")
+```
+
+## Reducing stochasticity in methods {.emphasized}
+
+- Relying on open code & data
+- Documented code & data processing
+- Well structured projects
+
+## Reducing stochasticity in methods {.emphasized}
+
+- Quick code review
+- Code re-use (replicability)
+
+## Reducing stochasticity in methods {.emphasized}
+
+- Well structured, consistent and readable
+- Well documented
+- Publicly archived
+
+## Public archives
+
+```{r echo=FALSE, fig.cap="https://zenodo.org", out.width="85%", fig.align='center'}
+knitr::include_graphics("zenodo.png")
+```
+
+## Public archives
+
+```{r echo=FALSE, fig.cap="https://daac.ornl.gov/", out.width="85%", fig.align='center'}
+knitr::include_graphics("ornl.png")
+```
