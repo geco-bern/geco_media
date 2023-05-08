@@ -40,6 +40,12 @@ knitr::include_graphics("https://the-turing-way.netlify.app/_images/reproducible
 
 ## Ocean acidification and fish behaviour {.emphasized}
 
+```{r echo=FALSE, fig.cap="", out.width="40%", fig.align='center'}
+knitr::include_graphics("https://www.science.org/cms/10.1126/science.372.6542.560/asset/1f03461e-df6a-4b79-b887-90beb6e3d98a/assets/graphic/372_560_f4.jpeg")
+```
+
+## Ocean acidification and fish behaviour {.emphasized}
+
 - Re-analysis and replication failed
 - Bias and small sample sizes
 - scientific misconduct / data fabrication

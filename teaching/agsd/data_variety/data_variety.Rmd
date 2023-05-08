@@ -93,6 +93,16 @@ knitr::include_graphics("binary_data.png")
 - Application Programming Interfaces (APIs)
   - automatic
 
+## Application Programming Interfaces (APIs) {.emphasized}
+
+```{r eval=FALSE}
+# load the library
+library("MODISTools")
+
+# list all available products
+products <- MODISTools::mt_products()
+```
+
 ## {data-background=eugenio-mazzone-unsplash.jpg data-background-size=cover .emphasized}
 
 <div class="centered">
