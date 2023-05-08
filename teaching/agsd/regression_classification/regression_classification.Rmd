@@ -114,7 +114,7 @@ ggplot(data = CO2) +
   )
 ```
 
-## Modeling
+## Diagnostic
 
 Linear regression: ` uptake ~ conc`
 
@@ -194,7 +194,9 @@ ggplot(data = CO2) +
 
 ```
 
-## Modeling
+## Diagnostic
+
+Linear regression: ` uptake ~ conc + Treatment + conc:Treatment`
 
 ```{r}
 par(mfrow = c(1,3))
