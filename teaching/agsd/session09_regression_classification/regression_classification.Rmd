@@ -1,0 +1,301 @@
+---
+title: "Regression and classification"
+author: "Pepa Aran"
+date: "`r Sys.Date()`"
+output: 
+  ioslides_presentation:
+    css: styles.css
+    incremental: false
+    widescreen: true
+    smaller: false
+    logo: "geco_logo_small.png"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, 
+                      warning = FALSE,
+                      fig.align='center',
+                      message = FALSE)
+
+library(ggplot2)
+
+add_lm_r2 <- function(mod){
+  as.character(as.expression(
+    substitute(~~italic(R)^2~"="~r2,
+               list(
+                 r2 = format(summary(mod)$r.squared, digits = 3)))))
+}
+```
+
+## The data science workflow {.emphasized}
+
+```{r fig.cap="", out.width="100%"}
+# Figure of the data science workflow
+knitr::include_graphics("ds_workflow_modeling.png")
+```
+
+## Carbon uptake data
+
+Experiment on the cold tolerance of grass plants
+
+```{r, fig.cap="Experiment on cold tolerance of CO_2 uptake in grass plants."}
+head(tibble::tibble(CO2))
+```
+
+Target variable: `uptake`
+
+## Visualisation
+
+```{r fig.cap="Regression of carbon uptake"}
+ggplot(data = CO2) +
+  geom_point(aes(
+    x = conc,
+    y = uptake
+  )) +
+  labs(
+    x = expression(paste("Ambient CO2 concentration (mL L"^-1, ")")),
+    y = expression(paste("CO2 uptake rate (", mu, "mol m"^-2, "s"^-1, ")"))
+  )
+```
+
+## Visualisation
+
+```{r fig.cap="Regression of carbon uptake"}
+# ggplot(data = iris) +
+#   geom_point(aes(
+#     x = Petal.Width,
+#     y = Petal.Length,
+#     color = Species
+#   ))
+
+ggplot(data = CO2) +
+  geom_point(aes(
+    x = conc,
+    y = uptake,
+    col = Treatment,
+    shape = Type
+  )) +
+  labs(
+    x = expression(paste("Ambient CO2 concentration (mL L"^-1, ")")),
+    y = expression(paste("CO2 uptake rate (", mu, "mol m"^-2, "s"^-1, ")"))
+  )
+```
+
+## Modeling
+
+Linear regression: ` uptake ~ conc`
+
+```{r}
+lm_conc <- lm(uptake ~ conc, data = CO2)
+
+ggplot(data = CO2) +
+  geom_point(aes(
+    x = conc,
+    y = uptake,
+    col = Treatment,
+    shape = Type
+  )) +
+  labs(
+    x = expression(paste("Ambient CO2 concentration (mL L"^-1, ")")),
+    y = expression(paste("CO2 uptake rate (", mu, "mol m"^-2, "s"^-1, ")"))
+  ) +
+  geom_smooth(aes(
+    x = conc,
+    y = uptake
+  ),
+  method = "lm",
+  se = FALSE,
+  col = "darkgrey",
+  formula = y ~ x
+  ) +
+  geom_text(x = 120, y = 45,
+            label = add_lm_r2(lm_conc),
+            parse = TRUE
+  )
+```
+
+## Diagnostic
+
+Linear regression: ` uptake ~ conc`
+
+```{r}
+par(mfrow = c(1,3))
+plot(lm_conc, c(1, 2, 5))
+```
+
+## Modeling
+
+Linear regression: ` uptake ~ conc + Treatment`
+
+```{r}
+# Fit linear regressions to get coefficients
+lm_treatment <- lm(uptake ~ conc + Treatment,
+                   data = CO2)
+
+ggplot(data = CO2) +
+  geom_point(aes(
+    x = conc,
+    y = uptake,
+    col = Treatment,
+    shape = Type
+  )) +
+  labs(
+    x = expression(paste("Ambient CO2 concentration (mL L"^-1, ")")),
+    y = expression(paste("CO2 uptake rate (", mu, "mol m"^-2, "s"^-1, ")"))
+  ) +
+  geom_abline(slope=lm_treatment$coefficients[2],
+              intercept=lm_treatment$coefficients[1],
+              color="#F8766D",
+              size=1) +
+  geom_abline(slope=lm_treatment$coefficients[2],
+              intercept=lm_treatment$coefficients[1] + lm_treatment$coefficients[3],
+              color="#00BFC4",
+              size=1) +
+  geom_text(x = 120, y = 45,
+            label = add_lm_r2(lm_treatment),
+            parse = TRUE
+            )
+
+```
+
+## Modeling
+
+Linear regression: ` uptake ~ conc + Treatment + conc:Treatment`
+
+```{r}
+# Fit linear regressions to get coefficients
+lm_interact <- lm(uptake ~ conc * Treatment,
+                   data = CO2)
+
+ggplot(data = CO2) +
+  geom_point(aes(
+    x = conc,
+    y = uptake,
+    col = Treatment,
+    shape = Type
+  )) +
+  labs(
+    x = expression(paste("Ambient CO2 concentration (mL L"^-1, ")")),
+    y = expression(paste("CO2 uptake rate (", mu, "mol m"^-2, "s"^-1, ")"))
+  ) +
+  geom_smooth(
+    aes(
+      x = conc,
+      y = uptake,
+      col = Treatment
+    ),
+    method = "lm",
+    se = FALSE
+  ) +
+  geom_text(x = 120, y = 45,
+            label = add_lm_r2(lm_interact),
+            parse = TRUE
+            )
+
+```
+
+## Diagnostic
+
+Linear regression: ` uptake ~ conc + Treatment + conc:Treatment`
+
+```{r}
+par(mfrow = c(1,3))
+plot(lm_interact, c(1, 2, 5))
+```
+
+## Modeling
+
+Regression with logarithmic term: `uptake ~ conc + log(conc)`
+
+```{r}
+lm_log1 <- lm(uptake ~ conc + log(conc),
+             data = CO2)
+
+ggplot(data = CO2) +
+  geom_point(
+    aes(
+      x = conc,
+      y = uptake,
+      col = Treatment,
+      shape = Type
+    )) +
+  labs(
+    x = expression(paste("Ambient CO2 concentration (mL L"^-1, ")")),
+    y = expression(paste("CO2 uptake rate (", mu, "mol m"^-2, "s"^-1, ")"))
+  ) +
+  geom_smooth(
+    aes(
+      x = conc,
+      y = uptake
+    ),
+    formula = y ~ x + log(x),
+    method = "lm",
+    se = FALSE,
+    col = "darkgrey"
+  ) +
+  geom_text(x = 120, y = 45,
+            label = add_lm_r2(lm_log1),
+            parse = TRUE
+            )
+
+```
+
+## Modeling
+
+Regression with logarithmic term and interactions: 
+
+`uptake ~ ( conc + log(conc) ) * Type * Treatment`
+
+```{r}
+lm_log <- lm(uptake ~ (conc + log(conc))*Treatment*Type,
+             data = CO2)
+
+ggplot(data = CO2) +
+  geom_point(
+    aes(
+      x = conc,
+      y = uptake,
+      col = Treatment,
+      shape = Type
+    )) +
+  labs(
+    x = expression(paste("Ambient CO2 concentration (mL L"^-1, ")")),
+    y = expression(paste("CO2 uptake rate (", mu, "mol m"^-2, "s"^-1, ")"))
+  ) +
+  geom_smooth(
+    aes(
+      x = conc,
+      y = uptake,
+      col = Treatment,
+      shape = Type
+    ),
+    formula = y ~ x + log(x),
+    method = "lm",
+    se = FALSE
+  ) +
+  geom_text(x = 120, y = 45,
+            label = add_lm_r2(lm_log),
+            parse = TRUE
+            )
+
+```
+
+## Diagnostic
+
+```{r}
+par(mfrow = c(1,3))
+plot(lm_log, c(1, 2, 5))
+```
+
+## Stepwise regression
+
+```{r out.width="40%"}
+knitr::include_graphics("stepwise1.png")
+
+# best_lm <- step(
+#   object = lm(uptake ~ 1, data = CO2),
+#   scope = uptake ~ (conc + log(conc)) * Type * Treatment
+# )
+# 
+# summary(best_lm)
+```
