@@ -1,5 +1,5 @@
 ---
-title: "Intro / phenology"
+title: "Intro"
 author: "Koen Hufkens"
 output: 
   ioslides_presentation:
@@ -57,27 +57,27 @@ knitr::opts_chunk$set(echo = TRUE)
 https://rmarkdown.rstudio.com/
 </div>
 
-## Finding & using data {.emphasized}
+## Reporting
 
-- World is data rich
-- Finding the right data is key
-- More on open data sources in the next lecture
+<div class="columns-2">
+  ![](ikea.jpg)
 
-## The beauty of small data
+  - Read the documentation/course
+  - Motivate the use of particular data and or methods
+  - Make notes on potential limitations
+</div>
+
+## A handfull of pixels
 
 - Manageable
 - Fast proto-typing
 - Site based validation data
 
-## Finding & using data {.emphasized}
+## Intro to spatial processing in R
 
-<div class="columns-2">
-  ![](ikea.jpg)
-
-  - Read the documentation
-  - Motivate the use of particular data
-  - Make notes on potential limitations
-</div>
+- World is data rich
+- Finding the right data is key
+- More on open data sources in the next lecture
 
 ## Finding & using data {.emphasized}
 
