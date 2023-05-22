@@ -15,15 +15,34 @@ date: "`r Sys.Date()`"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Recap
+
+- data types & handling
+- structure / organize code
+
+## Git
+
+- track changes for code
+- manual process
+
 ## 
 
-```{r label="gitworkflow", echo=FALSE, fig.cap="The git workflow- by Paola Corrales and Elio Campitelli"}
+```{r label="gitworkflow", echo=FALSE, fig.cap="The git workflow- by Paola Corrales and Elio Campitelli", fig.align="center"}
 knitr::include_graphics("https://eliocamp.github.io/reproducibility-with-r/materials/day2/02-git/images/file_cycle2.png")
 ```
 
+## Github & pair coding
+
+- combining the track changes (local) with a remote component
+- work together
+
 ##
 
-```{r label="githubworkflow", echo=FALSE, fig.cap="The github remote workflow- by Paola Corrales and Elio Campitelli"}
+```{r label="githubworkflow", echo=FALSE, fig.cap="The github remote workflow- by Paola Corrales and Elio Campitelli", fig.align="center"}
 knitr::include_graphics("https://eliocamp.github.io/reproducibility-with-r/materials/day2/02-git/images/local_remote.png")
 ```
 
+## Github templates
+
+- Using the lab's project template
+- removes overhead

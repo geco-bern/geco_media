@@ -1,0 +1,106 @@
+---
+title: "Intro / phenology"
+author: "Koen Hufkens"
+output: 
+  ioslides_presentation:
+    css: styles.css
+    incremental: false
+    widescreen: true
+    smaller: false
+    logo: "geco_logo_small.png"
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## These sessions
+
+  - R (markdown) based
+  - all accessible / when reading the chapters in class + brief intro
+  - here to teach, not to grade
+  - course material at: https://geco-bern.github.io/handfull_of_pixels/
+
+## Crash course R/RStudio
+
+<div class="columns-2">
+
+  <img src="https://d33wubrfki0l68.cloudfront.net/692f3658d35df168276cf46e3e083f908a5cc105/f7707/wp-content/uploads/2014/04/rstudio-windows.png" width="400">
+
+  - RStudio based (Integrated Development Environment)
+  - code heavy (focus on automation / computation)
+  - parallels with python
+</div>
+
+## R markdown
+
+<div>
+<img src="https://d33wubrfki0l68.cloudfront.net/bf6f5a7e151b6d29054337f2af2d04b1a8f791ce/3a8c1/articles/images/rmd-new.png" width="1000">
+</div>
+
+## R markdown
+
+<div>
+<img src="https://d33wubrfki0l68.cloudfront.net/8b1e3199db114918dce9bcf7ca4e959f0fd647c9/bb658/articles/images/rmd-window.png" width="1000">
+</div>
+
+## R markdown
+
+<div class="centered">
+<img src="https://d33wubrfki0l68.cloudfront.net/c809d76300abb0d71c47441e84ac530ebc37c325/f0172/articles/images/rmdint-template.png" width="800">
+</div>
+
+## 
+
+<div class="centered">
+https://rmarkdown.rstudio.com/
+</div>
+
+## Finding & using data {.emphasized}
+
+- World is data rich
+- Finding the right data is key
+- More on open data sources in the next lecture
+
+## The beauty of small data
+
+- Manageable
+- Fast proto-typing
+- Site based validation data
+
+## Finding & using data {.emphasized}
+
+<div class="columns-2">
+  ![](ikea.jpg)
+
+  - Read the documentation
+  - Motivate the use of particular data
+  - Make notes on potential limitations
+</div>
+
+## Finding & using data {.emphasized}
+
+- Identify how to **get the data**
+- Understand the format (extension)
+- **Confirm the format**
+  - meta-data
+  - headers
+
+## Getting data {.emphasized}
+
+- Direct downloads
+  - manually
+  - not always structured
+- Application Programming Interfaces (APIs)
+  - automatic
+
+## Application Programming Interfaces (APIs) {.emphasized}
+
+```{r eval=FALSE}
+# load the library
+library("MODISTools")
+
+# list all available products
+products <- MODISTools::mt_products()
+```
