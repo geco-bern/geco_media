@@ -66,6 +66,7 @@ install.packages("terra")
 install.packages("sf")
 install.packages("dplyr")
 install.packages("ggplot2")
+install.packages("patchwork")
 install.packages("MODISTools")
 install.packages("here")
 ```
