@@ -65,6 +65,8 @@ https://rmarkdown.rstudio.com/
   - Read the documentation/course
   - Motivate the use of particular data and or methods
   - Make notes on potential limitations
+  - Report in Rmarkdown (rendered html)
+  - Ask for help during the sessions
 </div>
 
 ## A handfull of pixels
@@ -73,7 +75,7 @@ https://rmarkdown.rstudio.com/
 - Fast proto-typing
 - Site based validation data
 
-## Intro to spatial processing in R
+## Spatial processing in R
 
 - World is data rich
 - Finding the right data is key
