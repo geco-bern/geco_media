@@ -1,0 +1,112 @@
+---
+title: "Data Variety"
+author: "Koen Hufkens"
+output: 
+  ioslides_presentation:
+    css: styles.css
+    incremental: false
+    widescreen: true
+    smaller: false
+    logo: "geco_logo_small.png"
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## {data-background=darwin-vegher-unsplash.jpg data-background-size=cover .emphasized #invert}
+
+  - Need to know where to find data
+  - How to search for data
+  - How to read data
+
+## Data variety
+
+```{r echo=FALSE, fig.cap="Von Humboldt  - Wiki Commons", out.width="65%", fig.align='center'}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Geographie_der_Pflanzen_in_den_Tropen-L%C3%A4ndern.jpg/1024px-Geographie_der_Pflanzen_in_den_Tropen-L%C3%A4ndern.jpg")
+```
+
+## Data variety {.build .emphasized}
+
+- Data is not delivered as usable entities
+- Requires certain software (libraries) to be read & manipulated
+```{r eval=FALSE}
+# common libraries and or functions to access data
+read.table()
+read.csv()
+```
+- Multiple ways of accessing data
+
+## File formats {.emphasized}
+
+- Data format is defined by a file extension
+- Last section of a file name after the last separating dot `.`
+- For example in `my_file.csv`, here, `csv` is the file extension
+- Describes the content of the file
+
+## File formats {.emphasized}
+
+- Ideally reflect the content, but not always
+- `my_file.csv` and `my_file.whatever` can have the same content
+
+## Readability {.emphasized}
+
+- Distinction between human readable and binary data
+  - binary data != human readable
+
+## Readability
+
+```{r echo=FALSE, fig.cap="", out.width="65%", fig.align='center'}
+knitr::include_graphics("binary_data.png")
+```
+
+## Finding & using data {.emphasized}
+
+- World is data rich
+- Finding the right data is key
+- More on open data sources in the next lecture
+
+## Finding & using data {.emphasized}
+
+<div class="columns-2">
+  ![](ikea.jpg)
+
+  - Read the documentation
+  - Motivate the use of particular data
+  - Make notes on potential limitations
+</div>
+
+## Finding & using data {.emphasized}
+
+- Identify how to **get the data**
+- Understand the format (extension)
+- **Confirm the format**
+  - meta-data
+  - headers
+
+## Getting data {.emphasized}
+
+- Direct downloads
+  - manually
+  - not always structured
+- Application Programming Interfaces (APIs)
+  - automatic
+
+## Application Programming Interfaces (APIs) {.emphasized}
+
+```{r eval=FALSE}
+# load the library
+library("MODISTools")
+
+# list all available products
+products <- MODISTools::mt_products()
+```
+
+## {data-background=eugenio-mazzone-unsplash.jpg data-background-size=cover .emphasized}
+
+<div class="centered">
+<div class="white">
+80% data, 20% science
+</div>
+</div>
