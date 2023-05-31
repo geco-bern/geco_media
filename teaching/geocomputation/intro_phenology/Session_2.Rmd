@@ -1,0 +1,41 @@
+---
+title: "A handfull of pixels"
+author: "Koen Hufkens"
+output: 
+  ioslides_presentation:
+    css: styles.css
+    incremental: false
+    widescreen: true
+    smaller: false
+    logo: "geco_logo_small.png"
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Recap {.emphasized}
+
+- questions?
+- issues?
+
+## Multi-spectral data
+
+<div class="centered">
+<img src="https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs43017-022-00298-5/MediaObjects/43017_2022_298_Fig2_HTML.png?as=webp" width="600">
+</div>
+
+Zeng et al. 2022
+
+## Temporal data {.emphasized}
+
+<div class="centered">
+<img src="https://www.mdpi.com/remotesensing/remotesensing-11-02201/article_deploy/html/images/remotesensing-11-02201-g002.png" width="800">
+</div>
+
+## Temporal data {.emphasized}
+
+<div class="centered">
+<img src="https://geco-bern.github.io/handfull_of_pixels/phenology_algorithms_files/figure-html/fig-smooth-1.png" width="800">
+</div>
