@@ -23,18 +23,33 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Multi-spectral data
 
 <div class="centered">
-<img src="https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs43017-022-00298-5/MediaObjects/43017_2022_298_Fig2_HTML.png?as=webp" width="600">
+<img src="https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs43017-022-00298-5/MediaObjects/43017_2022_298_Fig2_HTML.png?as=webp" width="500">
 </div>
 
 Zeng et al. 2022
 
-## Temporal data {.emphasized}
+
+## Vegetation indices {.emphasized}
+
+- NDVI (normalized difference vegetation index)
+- EVI (enhanced vegetation index)
+- LAI (leaf area index)
+
+## Multi-band / temporal data
+
+<div class="centered">
+<img src="https://raw.githubusercontent.com/r-spatial/stars/master/images/cube1.png" width="600">
+</div>
+
+by Edzer Pebesma
+
+## Multi-band / temporal data {.emphasized}
 
 <div class="centered">
 <img src="https://www.mdpi.com/remotesensing/remotesensing-11-02201/article_deploy/html/images/remotesensing-11-02201-g002.png" width="800">
 </div>
 
-## Temporal data {.emphasized}
+## Multi-band / temporal data {.emphasized}
 
 <div class="centered">
 <img src="https://geco-bern.github.io/handfull_of_pixels/phenology_algorithms_files/figure-html/fig-smooth-1.png" width="800">
