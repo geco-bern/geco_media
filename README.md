@@ -12,6 +12,8 @@ after the publication of a journal article.
 
 The [teaching folder](https://github.com/geco-bern/GECO_media/tree/main/teaching) includes teaching material in the form of (html) slides and other supporting information.
 
+The [house style folder](https://github.com/geco-bern/GECO_media/tree/main/house_style) includes the house style for presentations and other templates.
+
 ## Show case
 
 Map of the rooting-zone water-storage capacity from the latest Stocker et al. 2023 paper in Nature Geoscience.
