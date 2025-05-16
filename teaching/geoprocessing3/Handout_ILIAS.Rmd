@@ -1,0 +1,32 @@
+---
+title: "Spatio-temporal applications in ecology using R"
+subtitle: "Hand-in exercises of module 6a and 6b of Geoprocessing III - 2025"
+author: "Fabian Bernhard & Koen Hufkens"
+date: '2025-05-15/22'#'`r Sys.Date()`'
+output:
+  ioslides_presentation:
+    css: styles.css
+    incremental: false
+    widescreen: true
+    smaller: false
+    logo: images/geco_logo_small.png
+  beamer_presentation:
+    incremental: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Phenology trends and algorithms
+
+- course material at: https://fabern.github.io/handfull_of_pixels/
+- exercises: chapter 7.1 Phenology trends and algorithms
+- exercise: work alone or in teams of two
+- hand-in: **by June 5th, 2025** (in ILIAS)
+- hand-in: as a zip file containing a reproducible copy of your R project folder
+  - Rmd files with your analysis and responses to the exercise questions
+  - as well as rendered ("knitted") html-files of your Rmd-files
+  - including other data and source code (if needed)
+

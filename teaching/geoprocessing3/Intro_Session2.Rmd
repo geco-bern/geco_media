@@ -1,14 +1,17 @@
 ---
-title: "A handfull of pixels"
-author: "Koen Hufkens"
-output: 
+title: "Module Phenology - Session 2"
+subtitle: "Geoprocessing III - 2025  <br>Spatio-temporal applications in ecology using R"
+author: "Fabian Bernhard & Koen Hufkens"
+date: '2025-05-22'#'`r Sys.Date()`'
+output:
   ioslides_presentation:
     css: styles.css
     incremental: false
     widescreen: true
     smaller: false
-    logo: "geco_logo_small.png"
-date: "`r Sys.Date()`"
+    logo: images/geco_logo_small.png
+  beamer_presentation:
+    incremental: false
 ---
 
 ```{r setup, include=FALSE}
@@ -20,7 +23,16 @@ knitr::opts_chunk$set(echo = TRUE)
 - questions?
 - issues?
 
-## Multi-spectral data
+## Recap
+
+- each time you render a `*.Rmd`, all cells are run
+- `install.packages("...")`: do this only once, not in `*.Rmd`
+- `library(...)`: do this in each `*.Rmd` or `*.R` you need that package
+- Use the Tab button to complete function-, column-, or path-names
+- Use `?<fct>` or `??<fct>`, e.g `??mutate` to learn about what a function does and how to use it.<br>(What are the names of the arguments?)
+
+
+## Multi-spectral data {.emphasized}
 
 <div class="centered">
 <img src="https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs43017-022-00298-5/MediaObjects/43017_2022_298_Fig2_HTML.png?as=webp" width="500">
@@ -54,3 +66,16 @@ by Edzer Pebesma
 <div class="centered">
 <img src="https://geco-bern.github.io/handfull_of_pixels/phenology_algorithms_files/figure-html/fig-smooth-1.png" width="800">
 </div>
+
+
+## Finalizing {.emphasized}
+
+- Thank you for your participiation!
+- Hand-in of zipped project folder through ILIAS by June 05th
+  - Exercises 7.1.1 and 7.1.2. (7.1.3 is not mandatory)
+  - Contain (*.Rmd and *.html) in subfolder `vignette/`
+  - Contain data in subfolder `data/`
+- Looking for a Master thesis? <br>
+  https://geco-group.org/joinus/
+
+
