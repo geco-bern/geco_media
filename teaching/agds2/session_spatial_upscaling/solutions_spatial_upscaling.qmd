@@ -1,0 +1,475 @@
+# Exercise
+
+```{r}
+library(caret)
+library(recipes)
+library(ranger)
+library(patchwork)
+library(khroma)
+```
+
+
+## Literature
+
+Read the paper by @ludwig23 and answer the following questions:
+
+- Explain the difference between a random cross-validation and a spatial cross-validation.
+- In spatial upscaling, we model the target based on environmental covariates. This implies that we assume the training data to sufficiently represent the conditions on which the model will be applied for generating predictions. Prediction errors may increase with an increasing distance of the prediction location from the training locations. The paper by @ludwig23 considers this "distance" as a geographical distance in Euclidian space. Do you see an alternative to measuring a distance that considers the task of spatial upscaling based on environmental covariates more directly?
+
+## Random cross-validation
+
+Use Random Forest to perform a 5-fold cross-validation with the leaf N data (`leafN`) and the following predictors: 
+
+- `elv`: Elevation above sea level (m)
+- `mat`: mean annual temperature (degrees Celsius)
+- `map`: mean annual precipitation (mm yr$^{-1}$)
+- `ndep`: atmospheric nitrogen deposition g m$^{-2}$ yr$^{-1}$
+- `mai`: mean annual daily irradiance $\micro$mol m$^{-2}$ s$^{-1}$
+- `Species`: species name of the plant on which leaf N was measured
+
+Report the mean RMSE and *R*$^2$ across cross-validation folds. Chose hyperparameters as `mtry = 3` and `min.node.size = 12` and others as their default in `ranger::ranger()`.
+
+```{r eval=FALSE} 
+library(ranger)
+library(caret)
+library(recipes)
+
+## create generic formula for the model and define preprocessing steps
+# pp <- recipes::recipe(leafN ~ elv + mat + map + ndep + mai, data = df)
+pp <- recipes::recipe(
+  leafN ~ elv + mat + map + ndep + mai + Species,
+  data = dfs
+)
+
+traincotrlParams <- caret::trainControl(
+  method = "cv",
+  number = 5,
+  verboseIter = FALSE,
+  savePredictions = "final"
+)
+
+## best choice
+tune_grid <- expand.grid(
+  .mtry = 3, # c(2, 3, 4),
+  .min.node.size = 12, # c(2, 3, 5, 9, 12, 15, 21, 25, 30, 40, 50),
+  .splitrule = "variance"
+)
+
+# Recipe steps:
+# Resampling: Cross-Validated (5 fold)
+# Summary of sample sizes: 29131, 29131, 29131, 29131, 29132
+# Resampling results across tuning parameters:
+#
+#   mtry  min.node.size  RMSE      Rsquared   MAE
+#   2      2             4.716406  0.5389120  3.051739
+#   2      3             4.717679  0.5386400  3.052773
+#   2      5             4.724168  0.5373612  3.061426
+#   2      9             4.735914  0.5351690  3.077445
+#   2     12             4.749447  0.5326818  3.092934
+#   2     15             4.763188  0.5301679  3.109134
+#   2     21             4.790986  0.5251796  3.141961
+#   2     25             4.811222  0.5214996  3.164276
+#   2     30             4.833288  0.5175603  3.190976
+#   2     40             4.879286  0.5091725  3.243935
+#   2     50             4.923032  0.5011244  3.291593
+#   3      2             4.711170  0.5399557  3.047015
+#   3      3             4.710685  0.5400252  3.048403
+#   3      5             4.717087  0.5387448  3.054651
+#   3      9             4.729701  0.5363145  3.071209
+#   3     12             4.742530  0.5339064  3.086965
+#   3     15             4.753715  0.5318446  3.098524
+#   3     21             4.779212  0.5272034  3.129009
+#   3     25             4.795618  0.5242577  3.148068
+#   3     30             4.818019  0.5201323  3.173161
+#   3     40             4.861862  0.5120513  3.223632
+#   3     50             4.901580  0.5046961  3.268768
+#   4      2             4.710113  0.5401620  3.045311
+#   4      3             4.712152  0.5397669  3.047287
+#   4      5             4.716057  0.5389569  3.053113
+#   4      9             4.728828  0.5364594  3.070022
+#   4     12             4.737677  0.5348020  3.081394
+#   4     15             4.750334  0.5324457  3.094509
+#   4     21             4.775604  0.5277359  3.122494
+#   4     25             4.793094  0.5245002  3.141672
+#   4     30             4.810974  0.5212665  3.164322
+#   4     40             4.852922  0.5134994  3.211573
+#   4     50             4.892893  0.5059988  3.256600
+
+set.seed(1982)
+
+mod <- caret::train(
+  pp,
+  data            = dfs,
+  metric          = "RMSE",
+  method          = "ranger",
+  tuneGrid        = tune_grid,
+  trControl       = traincotrlParams
+)
+
+# RMSE     Rsquared   MAE
+# 4.71062  0.5400682  3.045817
+```
+
+## Spatial cross-validation
+
+Here is the distribution of our data across the globe.
+```{r eval=FALSE}
+library(ggplot2)
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+
+coast <- rnaturalearth::ne_coastline(scale = 110, returnclass = "sf")
+
+ggplot() +
+
+  # plot coastline
+  geom_sf(
+    data = coast,
+    colour = "black",
+    size = 0.2
+  ) +
+
+  # set extent in longitude and latitude
+  coord_sf(expand = FALSE) + # to draw map strictly bounded by the specified extent
+
+  # plot points on map
+  geom_point(data = dfs, aes(x = lon, y = lat), color = "red", size = 0.2) +
+  labs(x = "", y = "") +
+  theme_bw() +
+  theme(legend.position = "bottom")
+```
+
+```{r echo=FALSE, eval=FALSE}
+ggsave(here::here("book/images/map_sites.png"), width = 8, height = 4)
+```
+
+```{r echo=FALSE, fig.height=12}
+#| label: fig-map-points
+#| fig-cap: "Locations of data points."
+knitr::include_graphics(here::here("book/images/map_sites.png"))
+```
+
+1. What do you observe? Discuss the potential implications of the geographical distribution of data points for spatial upscaling.
+2. Perform a spatial cross-validation. To do so, first identify geographical clusters of the data using the k-means algorithm (an unsupervised machine learning method), considering the longitude and latitude of data points and setting $k = 5$. Plot points on a global map, showing the five clusters with distinct colors.
+3. Split your data into five folds that correspond to the geographical clusters identified by in (2.), and fit a random forest model with the same hyperparameters as above and performing a 5-fold cross-validation with the clusters as folds. Report the RMSE and the *R*$^2$ determined on each of the five folds and compare to the results of the random cross-validation.
+
+::: {.callout-tip}
+## Hint
+
+An example for how to use k-means is given in the [tutorial on land cover classification](https://geco-bern.github.io/handfull_of_pixels/land_cover_classification.html).
+:::
+
+::: {.callout-tip}
+## Hint
+
+Using a pre-defined grouping for delineating the folds in k-fold cross-validation can be done by first determining the indexes of rows for each group (a list of vectors that contain the row indexes of the training data). This can be done by:
+```{r eval = FALSE}
+# create folds based on clusters
+# assuming 'df' contains the data and a column called 'cluster' containing the
+# result of the k-means clustering
+group_folds_train <- purrr::map(
+  seq(length(unique(df$cluster))),
+  ~ {
+    df |>
+      select(cluster) |>
+      mutate(idx = 1:n()) |>
+      filter(cluster != .) |>
+      pull(idx)
+  }
+)
+
+group_folds_test <- purrr::map(
+  seq(length(unique(df$cluster))),
+  ~ {
+    df |>
+      select(cluster) |>
+      mutate(idx = 1:n()) |>
+      filter(cluster == .) |>
+      pull(idx)
+  }
+)
+```
+Then, implement the custom cross-validation "by hand". Code could look like this (But note that this is just for demo, and the code will not run without an error if you simply copy-and-paste. Complement in `...` with your code):
+```{r eval=FALSE}
+# create a function that trains a random forest model on a given set of rows and
+# predicts on a disjunct set of rows
+train_test_by_fold <- function(df, idx_train, idx_val) {
+  mod <- ranger::ranger(
+    x =  ..., # data frame with columns corresponding to predictors
+    y =  ... # a vector of the target values (not a data frame!)
+  )
+
+  pred <- predict(..., # the fitted model object
+    data = ... # a data frame with columns corresponding to predictors
+  )
+
+  rsq <- ... # the R-squared determined on the validation set
+  rmse <- ... # the root mean square error on the validation set
+
+  return(tibble(rsq = rsq, rmse = rmse))
+}
+
+# apply function on each custom fold and collect validation results in a nice
+# data frame
+out <- purrr::map2_dfr(
+  group_folds_train,
+  group_folds_test,
+  ~ train_test_by_fold(.x, .y)
+) |>
+  mutate(test_fold = 1:5)
+```
+:::
+
+```{r eval=FALSE}
+set.seed(666)
+clusters <- kmeans(
+  dfs |>
+    select(lon, lat),
+  centers = 5
+)
+
+# add clusters to data frame
+dfs2 <- dfs |>
+  ungroup() |>
+  mutate(cluster = clusters$cluster)
+
+gg1 <- dfs2 |>
+  ggplot(aes(leafN,
+    after_stat(density),
+    group = factor(cluster),
+    color = factor(cluster)
+  )) +
+  geom_density() +
+  khroma::scale_color_okabeito()
+
+# show clusters on a map
+gg2 <- ggplot() +
+
+  # plot coastline
+  geom_sf(
+    data = coast,
+    colour = "black",
+    size = 0.1
+  ) +
+
+  # set extent in longitude and latitude
+  coord_sf(expand = FALSE) + # to draw map strictly bounded by the specified extent
+
+  # plot points on map
+  geom_point(
+    data = dfs2,
+    aes(x = lon, y = lat, color = as.factor(cluster)),
+    size = 0.2,
+    show.legend = TRUE
+  ) +
+  khroma::scale_color_okabeito() +
+  labs(x = "", y = "")
+
+library(patchwork)
+gg1 / gg2
+
+pp <- recipes::recipe(leafN ~ elv + mat + map + ndep + mai + Species,
+  data = dfs2
+)
+
+# create folds based on clusters
+group_folds_train <- purrr::map(
+  seq(length(unique(dfs2$cluster))),
+  ~ {
+    dfs2 |>
+      select(cluster) |>
+      mutate(idx = 1:n()) |>
+      filter(cluster != .) |>
+      pull(idx)
+  }
+)
+
+group_folds_test <- purrr::map(
+  seq(length(unique(dfs2$cluster))),
+  ~ {
+    dfs2 |>
+      select(cluster) |>
+      mutate(idx = 1:n()) |>
+      filter(cluster == .) |>
+      pull(idx)
+  }
+)
+
+train_test_by_fold <- function(idx_train, idx_test) {
+  mod <- ranger::ranger(
+    x = dfs2[idx_train, c("elv", "mat", "map", "ndep", "mai", "Species")],
+    y = dfs2[idx_train, ]$leafN
+  )
+
+  pred <- predict(mod,
+    data = dfs2[idx_test, c("elv", "mat", "map", "ndep", "mai", "Species")]
+  )
+
+  df_test <- dfs2[idx_test, ] |>
+    mutate(pred = pred$predictions)
+
+  rsq <- cor(df_test$leafN, df_test$pred)^2
+  rmse <- sqrt(mean((df_test$leafN - df_test$pred)^2))
+
+  return(tibble(rsq = rsq, rmse = rmse))
+}
+
+out <- purrr::map2_dfr(
+  group_folds_train,
+  group_folds_test,
+  ~ train_test_by_fold(.x, .y)
+) |>
+  mutate(test_fold = 1:5)
+
+out
+
+out |>
+  summarise(mean(rsq))
+```
+
+::: {.callout-tip collapse="true"}
+## Expected Result
+
+This is approximate because the k-means clustering contains a random element.
+```{r echo=FALSE}
+# # A tibble: 5 × 3
+#      rsq  rmse test_fold
+#    <dbl> <dbl>     <int>
+# 1 0.0233  7.05         1
+# 2 0.492   4.04         2
+# 3 0.619   3.28         3
+# 4 0.511   3.07         4
+# 5 0.168   2.26         5
+```
+:::
+
+## Environmental cross-validation
+
+The central rationale for spatial uspcaling is that we can model based on relationships between the target variable and the environment. The geographic location is not among the predictors. Thus, as long as the training data covers a wide enough range of environmental conditions, we can model for any new location where environmental conditions are within that range, irrespective of its geographical position. The challenge is just that the training data often doesn't cover all environmental conditions of the globe, yet upscaling is often done for the globe. 
+
+Anyways, let's probe the generalisability of a model not in geographical space, but in environmental space. To do so, perform a custom cross-validation as above, but this time considering five clusters of points not in geographical space, but in environmental space - spanned by the mean annual precipitation and the mean annual temperature. Report the R-squared and the RMSE on the validation set of each of the five folds.
+
+```{r eval=FALSE}
+set.seed(666)
+clusters_env <- kmeans(
+  dfs |>
+    select(mat, map),
+  centers = 5
+)
+
+# add clusters to data frame
+dfs3 <- dfs |>
+  ungroup() |>
+  mutate(cluster = clusters_env$cluster)
+
+gg1 <- dfs3 |>
+  ggplot(aes(leafN,
+    after_stat(density),
+    group = factor(cluster),
+    color = factor(cluster)
+  )) +
+  geom_density() +
+  khroma::scale_color_okabeito()
+
+# show clusters on a map
+gg2 <- ggplot() +
+
+  # plot coastline
+  geom_sf(
+    data = coast,
+    colour = "black",
+    size = 0.1
+  ) +
+
+  # set extent in longitude and latitude
+  coord_sf(expand = FALSE) + # to draw map strictly bounded by the specified extent
+
+  # plot points on map
+  geom_point(
+    data = dfs3,
+    aes(x = lon, y = lat, color = as.factor(cluster)),
+    size = 0.2,
+    show.legend = TRUE
+  ) +
+  khroma::scale_color_okabeito() +
+  labs(x = "", y = "")
+
+gg3 <- ggplot() +
+  geom_point(data = dfs3, aes(x = mat, y = map / 10, color = as.factor(cluster))) +
+  theme_classic()
+
+pp <- recipes::recipe(leafN ~ elv + mat + map + ndep + mai + Species,
+  data = dfs3
+)
+
+# create folds based on clusters
+group_folds_train <- purrr::map(
+  seq(length(unique(dfs3$cluster))),
+  ~ {
+    dfs3 |>
+      select(cluster) |>
+      mutate(idx = 1:n()) |>
+      filter(cluster != .) |>
+      pull(idx)
+  }
+)
+
+group_folds_test <- purrr::map(
+  seq(length(unique(dfs3$cluster))),
+  ~ {
+    dfs3 |>
+      select(cluster) |>
+      mutate(idx = 1:n()) |>
+      filter(cluster == .) |>
+      pull(idx)
+  }
+)
+
+train_test_by_fold <- function(idx_train, idx_test) {
+  mod <- ranger::ranger(
+    x = dfs3[idx_train, c("elv", "mat", "map", "ndep", "mai", "Species")],
+    y = dfs3[idx_train, ]$leafN
+  )
+
+  pred <- predict(mod,
+    data = dfs3[idx_test, c("elv", "mat", "map", "ndep", "mai", "Species")]
+  )
+
+  df_test <- dfs3[idx_test, ] |>
+    mutate(pred = pred$predictions)
+
+  rsq <- cor(df_test$leafN, df_test$pred)^2
+  rmse <- sqrt(mean((df_test$leafN - df_test$pred)^2))
+
+  return(tibble(rsq = rsq, rmse = rmse))
+}
+
+out <- purrr::map2_dfr(
+  group_folds_train,
+  group_folds_test,
+  ~ train_test_by_fold(.x, .y)
+) |>
+  mutate(test_fold = 1:5)
+
+out
+
+out |>
+  summarise(mean(rsq))
+```
+
+::: {.callout-tip collapse="true"}
+## Expected Result
+
+This is approximate because the k-means clustering contains a random element.
+```{r echo=FALSE}
+# # A tibble: 5 × 3
+#     rsq  rmse test_fold
+#   <dbl> <dbl>     <int>
+# 1 0.652  2.95         1
+# 2 0.659  3.20         2
+# 3 0.602  3.20         3
+# 4 0.514  3.79         4
+# 5 0.469  3.55         5
+```
+:::
