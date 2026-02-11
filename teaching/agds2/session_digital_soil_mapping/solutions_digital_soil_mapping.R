@@ -66,7 +66,7 @@ print(rf_basic)
 # Make predictions for validation sites
 prediction <- predict(
   rf_basic, # RF model
-  newdata = df_test
+  data = df_test
 )
 
 # Save predictions to validation df
@@ -131,7 +131,7 @@ rf_bor <- ranger(
 # Make predictions for validation sites
 prediction <- predict(
   rf_bor, # RF model
-  newdata = df_test, # Predictor data
+  data = df_test, # Predictor data
   num.threads = parallel::detectCores() - 1
 )
 
@@ -152,8 +152,11 @@ out_cm_bor
 rf_basic
 rf_bor
 
-# => Considering OOB, the model with reduced predictors would not be identified
-# as better.
+# => Considering OOB, the model with reduced predictors would also be identified
+# as better. OOB prediction error of rf_bor is 20.66%
+# while the one for rf_basic is larger with 21.95%. 
+# When selecting the model with lower OOB prediction error we would thus also 
+# select rf_bor (in agreement with standard metrics).
 
 # Exercise 5.3 Model optimization-------------------------------------------------
 # Reduce dataset for clear formula specification
@@ -234,13 +237,21 @@ df_test <- bind_cols(
 )
 
 # ROC curve
-roc_curve(
-  df_test,
-  is_false_waterlog.100,
-  truth = waterlog.100
+yardstick::roc_curve(
+  data = df_test,
+  truth = waterlog.100, # this has two levels: 0 ('first' level) and 1 ('second' level)
+  # variant 1 (wrong: results in sensitivity for non-water-logging, since event_level == "first"):
+  # event_level = "first", # this is the default
+  # is_false_waterlog.100 # probabilities for class 0 (specified by event_level, default='first', i.e. 0)
+  
+  # variant 2 (right: gives sensitivity for water-logging, since event_level = "second"):
+  event_level = "second",
+  is_true_waterlog.100 # probabilities for class 1 (specified by event_level, here='second', i.e. 1)
 ) %>%
   ggplot(aes(x = 1 - specificity, y = sensitivity)) +
   geom_path() +
+  geom_text(data = function(df){df |> slice_sample(n=5)},
+            aes(label = sprintf("%.2f",.threshold)), color = "red", hjust=0, vjust=1) +
   geom_abline(lty = 3) +
   coord_equal() +
   theme_bw()
